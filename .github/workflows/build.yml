@@ -1,4 +1,4 @@
-name: Build ItemSelector
+name: Build MoonSelector
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - name: Maven 빌드
         run: mvn clean package -B
 
-      - name: JAR 파일 업로드
+      - name: .jar 파일 업로드 (다운로드 가능하게)
         uses: actions/upload-artifact@v4
         with:
           name: MoonSelector
