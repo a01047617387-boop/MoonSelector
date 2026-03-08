@@ -3,7 +3,7 @@ name: Build ItemSelector
 on:
   push:
     branches: [ main, master ]
-  workflow_dispatch:  # 수동 실행도 가능
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,9 +22,9 @@ jobs:
       - name: Maven 빌드
         run: mvn clean package -B
 
-      - name: .jar 파일 업로드 (다운로드 가능하게)
+      - name: JAR 파일 업로드
         uses: actions/upload-artifact@v4
         with:
-          name: ItemSelector-jar
-          path: target/ItemSelector-*.jar
+          name: MoonSelector
+          path: target/MoonSelector-*.jar
           retention-days: 30
