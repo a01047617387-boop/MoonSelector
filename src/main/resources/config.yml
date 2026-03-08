@@ -1,0 +1,50 @@
+# MoonSelector 설정 파일
+# ========================
+
+# GUI 설정
+gui:
+  title: "&6✦ 아이템 선택 ✦"
+  rows: 6  # 6줄 (54칸) GUI
+
+# 보상받기 버튼 설정
+reward-button:
+  slot: 49  # GUI 하단 중앙
+  display-name: "&a✔ 보상받기"
+  lore:
+    - "&7선택한 아이템을 받습니다."
+    - "&e클릭하여 수령!"
+
+# 선택 표시 아이템 (아이템 선택 시 테두리에 표시)
+selected-indicator:
+  material: LIME_STAINED_GLASS_PANE
+  display-name: "&a✔ 선택됨"
+
+# 빈 칸 채우기 아이템
+filler:
+  material: GRAY_STAINED_GLASS_PANE
+  display-name: " "
+
+# NPC 설정 (Citizens 연동)
+npc:
+  # NPC ID 목록 (Citizens NPC ID)
+  ids: []
+
+# 아이템 도트 (특정 아이템을 우클릭했을때 GUI 오픈)
+trigger-item:
+  # 아이템에 커스텀 태그 사용
+  enabled: true
+  display-name: "&b[아이템 선택기]"
+
+# 메시지 설정
+messages:
+  prefix: "&8[&6아이템선택&8] &r"
+  item-set: "&a아이템이 설정되었습니다! &7(총 %count%개)"
+  item-cleared: "&c아이템 목록이 초기화되었습니다."
+  no-item-selected: "&c아이템을 선택해주세요!"
+  reward-received: "#1DDB16[알림] #F361DC성공적으로 #FFFFFF아이템을 수령하였습니다."
+  inventory-full: "#1DDB16[알림] #FF7171인벤토리를 #FFFFFF비운 상태로 아이템을 수령해주세요."
+  no-permission: "&c권한이 없습니다!"
+  usage: "&e사용법: /아이템선택 아이템설정"
+  gui-open-error: "&c GUI를 열 수 없습니다. 관리자에게 문의하세요."
+  already-received: "&c이미 아이템을 선택하셨습니다."
+  no-items-configured: "&c설정된 아이템이 없습니다. 관리자에게 문의하세요."

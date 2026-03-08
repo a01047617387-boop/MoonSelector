@@ -1,0 +1,22 @@
+name: MoonSelector
+version: '${project.version}'
+main: com.moonselector.MoonSelectorPlugin
+api-version: '1.21'
+description: Item Selection GUI Plugin
+
+softdepend:
+  - Citizens
+
+commands:
+  아이템선택:
+    description: 아이템 선택 플러그인 관리 명령어
+    usage: /아이템선택 <아이템설정>
+    permission: moonselector.admin
+
+permissions:
+  moonselector.admin:
+    description: 관리자 권한
+    default: op
+  moonselector.use:
+    description: 아이템 선택 GUI 사용 권한
+    default: true
