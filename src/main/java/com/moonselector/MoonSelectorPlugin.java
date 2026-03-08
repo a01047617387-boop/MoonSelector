@@ -22,7 +22,6 @@ public final class MoonSelectorPlugin extends JavaPlugin {
     private GUIManager guiManager;
     private boolean citizensEnabled = false;
 
-    // 헥스 컬러 패턴: #RRGGBB
     private static final Pattern HEX_PATTERN = Pattern.compile("#([A-Fa-f0-9]{6})");
 
     @Override
@@ -72,22 +71,11 @@ public final class MoonSelectorPlugin extends JavaPlugin {
     public GUIManager getGUIManager() { return guiManager; }
     public boolean isCitizensEnabled() { return citizensEnabled; }
 
-    // ─────────────────────────────────────────────────────────────
-    // 메시지 전송 (헥스 컬러 지원)
-    // ─────────────────────────────────────────────────────────────
-
-    /**
-     * 플레이어에게 헥스 컬러 지원 메시지 전송
-     * #RRGGBB 형식과 &코드 모두 지원
-     */
     public static void sendMessage(Player player, String message) {
         if (message == null || message.isEmpty()) return;
         player.sendMessage(parseColor(message));
     }
 
-    /**
-     * config.yml messages 섹션에서 메시지를 읽어 전송
-     */
     public void sendConfigMessage(Player player, String key) {
         String raw = getConfig().getString("messages." + key, "");
         sendMessage(player, raw);
@@ -101,18 +89,9 @@ public final class MoonSelectorPlugin extends JavaPlugin {
         sendMessage(player, raw);
     }
 
-    /**
-     * #RRGGBB 헥스 코드와 &색상 코드를 Adventure Component로 변환
-     *
-     * 처리 순서:
-     *  1. #RRGGBB → §x§R§R§G§G§B§B (legacy hex 형식)
-     *  2. & → § (legacy color code)
-     *  3. LegacyComponentSerializer로 Component 생성
-     */
     public static Component parseColor(String text) {
         if (text == null) return Component.empty();
 
-        // 1. #RRGGBB 헥스 → §x§r§r§g§g§b§b 형식으로 변환
         Matcher matcher = HEX_PATTERN.matcher(text);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
@@ -125,20 +104,12 @@ public final class MoonSelectorPlugin extends JavaPlugin {
         }
         matcher.appendTail(sb);
 
-        // 2. & → § 변환
         String legacyText = sb.toString().replace('&', '§');
-
-        // 3. Adventure LegacyComponentSerializer로 파싱 (헥스 지원)
         return LegacyComponentSerializer.legacySection().deserialize(legacyText);
     }
 
-    /**
-     * 하위 호환용 - GUI 타이틀/lore 등 문자열이 필요한 곳에서 사용
-     * (Player에게 직접 보내지 않고 문자열로 필요한 경우)
-     */
     public static String colorize(String text) {
         if (text == null) return "";
-        // 헥스 변환
         Matcher matcher = HEX_PATTERN.matcher(text);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
@@ -153,7 +124,6 @@ public final class MoonSelectorPlugin extends JavaPlugin {
         return sb.toString().replace('&', '§');
     }
 
-    // 기존 코드 호환용 (GUIManager 등에서 사용 중)
     public String getMessage(String key) {
         return getConfig().getString("messages." + key, "");
     }
@@ -164,5 +134,9 @@ public final class MoonSelectorPlugin extends JavaPlugin {
             msg = msg.replace(replacements[i], replacements[i + 1]);
         }
         return msg;
+    }
+
+    public String getPrefix() {
+        return getConfig().getString("messages.prefix", "&7[&bMoonSelector&7] ");
     }
 }
